@@ -17,6 +17,7 @@ interface DocItem {
 
 function Search() {
   const API_BASE = import.meta.env.VITE_API_BASE as string;
+  const API_SEARCH = `${API_BASE.replace(/\/+$/, '')}/search`;
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<DocItem[]>([]);
