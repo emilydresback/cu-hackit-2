@@ -13,8 +13,8 @@ interface ChatMessage {
 function Chatbot() {
   const apiBaseRaw = import.meta.env.VITE_API_BASE as string;
   const apiBase = (apiBaseRaw || "").replace(/\/+$/, ""); // remove trailing slash
-  const chatEndpoint = apiBase ? `${apiBase}/chat` : "";
-
+  const chatEndpoint = apiBase ? `${apiBase}/govdocs-chat` : "";
+  
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
