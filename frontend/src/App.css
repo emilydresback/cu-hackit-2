@@ -313,6 +313,10 @@ body {
   transition: border-color var(--motion-standard), transform var(--motion-bounce), box-shadow var(--motion-standard);
   animation: fade-up 520ms var(--motion-standard) both;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .feature-card::after {
@@ -345,8 +349,8 @@ body {
 }
 
 .feature-icon {
-  width: 3rem;
-  height: 3rem;
+  width: 5.5rem;
+  height: 5.5rem;
   object-fit: contain;
   margin-bottom: 16px;
   filter: none;
