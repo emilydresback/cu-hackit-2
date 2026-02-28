@@ -8,6 +8,7 @@ function Home() {
   return (
     <div className="home-container">
       <div className="hero-section">
+        <div className="hero-badge">Evidence-first • Modern research workspace</div>
         <h1 className="hero-title">Research Docs</h1>
         <p className="hero-subtitle">
           A clear workspace for public-policy and government-document research

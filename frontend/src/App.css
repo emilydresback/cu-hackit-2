@@ -1,6 +1,7 @@
 :root {
   --bg: #f5f7fa;
   --surface: #ffffff;
+  --surface-soft: #f9fbfd;
   --text: #111827;
   --muted: #4b5563;
 
@@ -11,8 +12,8 @@
   --accent-soft: #e9f5ef;
   --line: #e5e7eb;
 
-  --shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
-  --shadow-soft: 0 6px 16px rgba(17, 24, 39, 0.05);
+  --shadow: 0 14px 34px rgba(17, 24, 39, 0.08);
+  --shadow-soft: 0 8px 20px rgba(17, 24, 39, 0.06);
 
   --radius: 14px;
   --motion-standard: 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -68,10 +69,17 @@
 
 body {
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: radial-gradient(circle at top right, #edf8f3 0%, var(--bg) 38%);
+  background:
+    radial-gradient(circle at 92% 2%, #e8f5ef 0%, rgba(232, 245, 239, 0) 34%),
+    radial-gradient(circle at 8% 98%, #edf3fb 0%, rgba(237, 243, 251, 0) 40%),
+    var(--bg);
   color: var(--text);
   min-height: 100vh;
   line-height: 1.5;
+}
+
+::selection {
+  background: rgba(31, 122, 90, 0.2);
 }
 
 .app {
@@ -188,13 +196,33 @@ body {
 }
 
 .hero-section {
-  text-align: center;
-  padding: 60px 28px;
-  background: var(--surface);
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--line);
-  animation: fade-up 520ms var(--motion-standard) both;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -90px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(31, 122, 90, 0.18) 0%, rgba(31, 122, 90, 0) 70%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 122, 90, 0.24);
+  background: var(--accent-soft);
+  color: var(--accent-2);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 14px;
 }
 
 .hero-title {
@@ -203,6 +231,27 @@ body {
   letter-spacing: -0.02em;
   color: var(--navy);
   margin-bottom: 16px;
+}
+
+.hero-section {
+  text-align: center;
+  padding: 60px 28px;
+  background: var(--surface);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  animation: fade-up 520ms var(--motion-standard) both;
+  position: relative;
+  overflow: hidden;
+}
+
+
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+  font-weight: 600;
 }
 
 .hero-subtitle {
@@ -251,13 +300,25 @@ body {
 }
 
 .feature-card {
-  background: var(--surface);
+  background: linear-gradient(180deg, #ffffff 0%, var(--surface-soft) 100%);
   padding: 32px 28px;
   border-radius: 16px;
   border: 1px solid var(--line);
   box-shadow: var(--shadow-soft);
   transition: border-color var(--motion-standard), transform var(--motion-standard), box-shadow var(--motion-standard);
   animation: fade-up 520ms var(--motion-standard) both;
+  position: relative;
+}
+
+.feature-card::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(31, 122, 90, 0.65), rgba(31, 122, 90, 0));
 }
 
 .feature-card:nth-child(1) {
@@ -320,6 +381,7 @@ body {
 .info-content {
   max-width: 800px;
   margin: 0 auto;
+  backdrop-filter: blur(4px);
 }
 
 .info-content > p {
@@ -723,7 +785,7 @@ body {
 }
 
 .chat-shell {
-  background: var(--surface);
+  background: linear-gradient(180deg, #ffffff 0%, var(--surface-soft) 100%);
   border: 1px solid var(--line);
   border-radius: 16px;
   box-shadow: var(--shadow);
@@ -911,7 +973,22 @@ body {
   }
 
   .chat-bubble {
-    max-width: 100%;
+ 
+
+.chat-messages::-webkit-scrollbar {
+  width: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(31, 122, 90, 0.28);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}   max-width: 100%;
   }
 }
 
