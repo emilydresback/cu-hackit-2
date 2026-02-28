@@ -1,5 +1,5 @@
 :root {
-  --bg: #f5f7fa;
+  --bg: #dbeafe;
   --surface: #ffffff;
   --surface-soft: #f9fbfd;
   --text: #111827;
@@ -7,9 +7,9 @@
 
   --navy: #1f3a5f;
   --navy-2: #254a79;
-  --accent: #1f7a5a;
-  --accent-2: #16664a;
-  --accent-soft: #e9f5ef;
+  --accent: #2563eb;
+  --accent-2: #1d4ed8;
+  --accent-soft: #eff6ff;
   --line: #e5e7eb;
 
   --shadow: 0 14px 34px rgba(17, 24, 39, 0.08);
@@ -54,10 +54,10 @@
 
 @keyframes pulse-ring {
   0% {
-    box-shadow: 0 0 0 0 rgba(31, 122, 90, 0.25);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.25);
   }
   100% {
-    box-shadow: 0 0 0 8px rgba(31, 122, 90, 0);
+    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0);
   }
 }
 
@@ -69,21 +69,21 @@
 
 body {
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: var(--accent-soft);
+  background: var(--bg);
   color: var(--text);
   min-height: 100vh;
   line-height: 1.5;
 }
 
 ::selection {
-  background: rgba(31, 122, 90, 0.2);
+  background: rgba(37, 99, 235, 0.2);
 }
 
 .app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--accent-soft);
+  background: var(--bg);
 }
 
 /* ============================================
@@ -152,12 +152,12 @@ body {
 
 .nav-link:hover {
   color: var(--navy);
-  background: rgba(31, 122, 90, 0.10);
+  background: rgba(37, 99, 235, 0.1);
 }
 
 .nav-link.active {
   color: var(--accent-2);
-  background: rgba(31, 122, 90, 0.12);
+  background: rgba(37, 99, 235, 0.12);
 }
 
 .nav-link.active::after {
@@ -214,7 +214,7 @@ body {
   align-items: center;
   padding: 6px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(31, 122, 90, 0.24);
+  border: 1px solid rgba(37, 99, 235, 0.24);
   background: var(--accent-soft);
   color: var(--accent-2);
   font-size: 0.8rem;
@@ -241,6 +241,13 @@ body {
   animation: fade-up 520ms var(--motion-standard) both;
   position: relative;
   overflow: hidden;
+  transition: transform var(--motion-bounce), box-shadow var(--motion-standard), border-color var(--motion-standard);
+}
+
+.hero-section:hover {
+  transform: translateY(-2px) scale(1.002);
+  box-shadow: 0 18px 36px rgba(29, 78, 216, 0.16);
+  border-color: rgba(37, 99, 235, 0.28);
 }
 
 
@@ -278,13 +285,13 @@ body {
   font-size: 1rem;
   transition: background-color var(--motion-standard), transform var(--motion-standard), box-shadow var(--motion-standard);
   box-shadow: none;
-  border: 1px solid rgba(31, 122, 90, 0.25);
+  border: 1px solid rgba(37, 99, 235, 0.25);
 }
 
 .cta-button:hover {
   transform: translateY(-1px);
   background: var(--accent-2);
-  box-shadow: 0 8px 22px rgba(22, 102, 74, 0.22);
+  box-shadow: 0 8px 22px rgba(29, 78, 216, 0.22);
 }
 
 .cta-button:active {
@@ -303,7 +310,7 @@ body {
   border-radius: 16px;
   border: 1px solid var(--line);
   box-shadow: var(--shadow-soft);
-  transition: border-color var(--motion-standard), transform var(--motion-standard), box-shadow var(--motion-standard);
+  transition: border-color var(--motion-standard), transform var(--motion-bounce), box-shadow var(--motion-standard);
   animation: fade-up 520ms var(--motion-standard) both;
   position: relative;
 }
@@ -316,7 +323,7 @@ body {
   top: 0;
   height: 2px;
   border-radius: 999px;
-  background: rgba(31, 122, 90, 0.45);
+  background: rgba(37, 99, 235, 0.45);
 }
 
 .feature-card:nth-child(1) {
@@ -332,9 +339,9 @@ body {
 }
 
 .feature-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-soft);
-  border-color: rgba(31, 122, 90, 0.3);
+  transform: translateY(-3px) scale(1.004);
+  box-shadow: 0 16px 30px rgba(29, 78, 216, 0.16);
+  border-color: rgba(37, 99, 235, 0.3);
 }
 
 .feature-icon {
@@ -367,6 +374,13 @@ body {
   box-shadow: var(--shadow-soft);
   animation: fade-up 520ms var(--motion-standard) both;
   animation-delay: 260ms;
+  transition: transform var(--motion-bounce), box-shadow var(--motion-standard), border-color var(--motion-standard);
+}
+
+.info-section:hover {
+  transform: translateY(-2px) scale(1.002);
+  box-shadow: 0 16px 30px rgba(29, 78, 216, 0.14);
+  border-color: rgba(37, 99, 235, 0.28);
 }
 
 .info-section h2 {
@@ -403,7 +417,7 @@ body {
   color: var(--text);
   font-weight: 500;
   font-size: 1rem;
-  border: 1px solid rgba(31, 122, 90, 0.2);
+  border: 1px solid rgba(37, 99, 235, 0.2);
 }
 
 /* ============================================
@@ -419,6 +433,13 @@ body {
   box-shadow: var(--shadow);
   border: 1px solid var(--line);
   animation: soft-pop 360ms var(--motion-bounce) both;
+  transition: transform var(--motion-bounce), box-shadow var(--motion-standard), border-color var(--motion-standard);
+}
+
+.search-page:hover {
+  transform: translateY(-2px) scale(1.002);
+  box-shadow: 0 18px 34px rgba(29, 78, 216, 0.13);
+  border-color: rgba(37, 99, 235, 0.26);
 }
 
 .search-header {
@@ -468,14 +489,14 @@ body {
 }
 
 .search-form input:focus {
-  border-color: rgba(31, 122, 90, 0.45);
-  box-shadow: 0 0 0 3px rgba(31, 122, 90, 0.12);
+  border-color: rgba(37, 99, 235, 0.45);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .search-form button {
   padding: 12px 16px;
   border-radius: 12px;
-  border: 1px solid rgba(31, 122, 90, 0.25);
+  border: 1px solid rgba(37, 99, 235, 0.25);
   background: var(--accent);
   color: white;
   font-weight: 600;
@@ -488,7 +509,7 @@ body {
 .search-form button:hover {
   background: var(--accent-2);
   transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(22, 102, 74, 0.2);
+  box-shadow: 0 8px 20px rgba(29, 78, 216, 0.2);
 }
 
 .search-form button:active {
@@ -528,7 +549,7 @@ body {
 
 .results li:hover {
   transform: translateY(-1px);
-  border-color: rgba(31, 122, 90, 0.3);
+  border-color: rgba(37, 99, 235, 0.3);
 }
 
 .results li a {
@@ -624,8 +645,8 @@ body {
 
 .topic-field select:focus,
 .topic-field input:focus {
-  border-color: rgba(31, 122, 90, 0.45);
-  box-shadow: 0 0 0 3px rgba(31, 122, 90, 0.12);
+  border-color: rgba(37, 99, 235, 0.45);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .topic-action {
@@ -636,7 +657,7 @@ body {
 .topic-fetch-button {
   padding: 11px 16px;
   border-radius: 12px;
-  border: 1px solid rgba(31, 122, 90, 0.25);
+  border: 1px solid rgba(37, 99, 235, 0.25);
   background: var(--accent);
   color: #ffffff;
   font-size: 0.9rem;
@@ -648,7 +669,7 @@ body {
 .topic-fetch-button:hover {
   background: var(--accent-2);
   transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(22, 102, 74, 0.2);
+  box-shadow: 0 8px 20px rgba(29, 78, 216, 0.2);
 }
 
 .topic-fetch-button:disabled {
@@ -788,6 +809,13 @@ body {
   border-radius: 16px;
   box-shadow: var(--shadow);
   padding: 18px;
+  transition: transform var(--motion-bounce), box-shadow var(--motion-standard), border-color var(--motion-standard);
+}
+
+.chat-shell:hover {
+  transform: translateY(-2px) scale(1.002);
+  box-shadow: 0 18px 34px rgba(29, 78, 216, 0.13);
+  border-color: rgba(37, 99, 235, 0.26);
 }
 
 .chat-messages {
@@ -826,7 +854,7 @@ body {
 .chat-bubble.assistant {
   justify-self: start;
   background: var(--accent-soft);
-  border-color: rgba(31, 122, 90, 0.22);
+  border-color: rgba(37, 99, 235, 0.22);
 }
 
 .chat-bubble.user {
@@ -868,14 +896,14 @@ body {
 }
 
 .chat-form input:focus {
-  border-color: rgba(31, 122, 90, 0.45);
-  box-shadow: 0 0 0 3px rgba(31, 122, 90, 0.12);
+  border-color: rgba(37, 99, 235, 0.45);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .chat-form button {
   padding: 12px 16px;
   border-radius: 12px;
-  border: 1px solid rgba(31, 122, 90, 0.25);
+  border: 1px solid rgba(37, 99, 235, 0.25);
   background: var(--accent);
   color: #ffffff;
   font-weight: 600;
@@ -978,7 +1006,7 @@ body {
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-  background: rgba(31, 122, 90, 0.28);
+  background: rgba(37, 99, 235, 0.28);
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
