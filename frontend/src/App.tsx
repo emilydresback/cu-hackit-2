@@ -3,6 +3,7 @@ import Navigation from "./Navigation";
 import Home from "./Home";
 import Search from "./Search";
 import TopicExplorer from "./TopicExplorer"; // ⬅️ new import
+import Chatbot from "./Chatbot";
 import "./App.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             {/* New debug / testing route */}
             <Route path="/topics" element={<TopicExplorer />} />
+            <Route path="/chat" element={<Chatbot />} />
           </Routes>
         </div>
       </div>

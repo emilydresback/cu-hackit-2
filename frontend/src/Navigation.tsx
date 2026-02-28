@@ -32,6 +32,12 @@ function Navigation() {
           >
             Topics
           </Link>
+          <Link
+            to="/chat"
+            className={`nav-link ${location.pathname === '/chat' ? 'active' : ''}`}
+          >
+            Chat
+          </Link>
         </div>
       </div>
     </nav>
