@@ -57,17 +57,17 @@ function Search() {
   return (
     <div className="search-page">
       <div className="search-header">
-        <h1>Search Documents</h1>
+        <h1>Research Documents</h1>
         <p>
-          Search public U.S. Department of Justice and Federal Register
-          documents to help people better understand government publications.
+          Query public DOJ and Federal Register records with a streamlined,
+          research-first workflow.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="search-form">
         <input
           type="text"
-          placeholder="e.g. civil rights, fraud, antitrust..."
+          placeholder="Try: antitrust merger, civil rights enforcement, student loan rule"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />

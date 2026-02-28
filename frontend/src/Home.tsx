@@ -8,52 +8,52 @@ function Home() {
   return (
     <div className="home-container">
       <div className="hero-section">
-        <h1 className="hero-title">GovDocs Explorer</h1>
+        <h1 className="hero-title">Research Docs</h1>
         <p className="hero-subtitle">
-          Your gateway to understanding U.S. government documents
+          A clear workspace for public-policy and government-document research
         </p>
         <p className="hero-description">
-          Search and explore public documents from the Department of Justice and Federal Register.
-          Access vital government information with clarity and transparency.
+          Search trusted public sources, compare signals quickly, and move from
+          questions to evidence with less noise and more focus.
         </p>
         <Link to="/search" className="cta-button">
-          Start Exploring
+          Start Research
         </Link>
       </div>
 
       <div className="features-grid">
         <div className="feature-card">
           <img src={clipboardImg} alt="DOJ" className="feature-icon" />
-          <h3>Department of Justice</h3>
-          <p>Access press releases, legal documents, and official DOJ publications</p>
+          <h3>Primary Sources</h3>
+          <p>Review DOJ and Federal Register records directly from official publishers</p>
         </div>
 
         <div className="feature-card">
           <img src={newspaperImg} alt="Federal Register" className="feature-icon" />
-          <h3>Federal Register</h3>
-          <p>Browse federal rules, proposed regulations, and public notices</p>
+          <h3>Structured Discovery</h3>
+          <p>Scan results by agency, type, and date for faster evidence triage</p>
         </div>
 
         <div className="feature-card">
           <img src={glassImg} alt="Search" className="feature-icon" />
-          <h3>Powerful Search</h3>
-          <p>Find exactly what you need with our intelligent search capabilities</p>
+          <h3>Focused Interface</h3>
+          <p>Minimal interactions reduce cognitive load and keep attention on content</p>
         </div>
       </div>
 
       <div className="info-section">
-        <h2>Why GovDocs Explorer?</h2>
+        <h2>Why Research Docs?</h2>
         <div className="info-content">
           <p>
-            We believe government documents should be accessible to everyone. 
-            GovDocs Explorer helps citizens, researchers, journalists, and legal professionals 
-            navigate the vast landscape of U.S. government publications with ease.
+            Research Docs is designed for students, analysts, journalists, and
+            policy teams who need to gather reliable context quickly. The design
+            emphasizes readability, consistency, and direct access to source material.
           </p>
           <ul className="benefits-list">
-            <li>✓ Free and open access to public records</li>
-            <li>✓ Up-to-date information from official sources</li>
-            <li>✓ Simple, intuitive interface</li>
-            <li>✓ Direct links to original documents</li>
+            <li>✓ Clear visual hierarchy for faster scanning</li>
+            <li>✓ Consistent patterns that reduce interaction friction</li>
+            <li>✓ Accessible contrast and spacious typography</li>
+            <li>✓ Direct links to original source documents</li>
           </ul>
         </div>
       </div>

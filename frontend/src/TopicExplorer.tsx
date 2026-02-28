@@ -1,6 +1,7 @@
 // src/TopicExplorer.tsx
 import React, { useState } from "react";
 import { TOPICS } from "./topic";
+import "./App.css";
 
 // TODO: replace with your real Lambda URL
 const LAMBDA_URL = "https://p8fh3grm0g.execute-api.us-east-1.amazonaws.com/prod/search";
@@ -65,44 +66,20 @@ function TopicExplorer() {
   }
 
   return (
-    <div
-      style={{
-        padding: "1.5rem 0",
-      }}
-    >
-      <h1 style={{ margin: 0, fontSize: "1.6rem" }}>Topic Explorer (Lambda Test)</h1>
-      <p style={{ margin: "0.4rem 0 1.2rem", color: "#6b7280", fontSize: "0.9rem" }}>
-        Pick a topic, optionally refine the search, and fetch real data from your
-        Lambda.
+    <div className="topic-page">
+      <h1 className="topic-title">Research Topics</h1>
+      <p className="topic-subtitle">
+        Choose a topic, optionally refine the query, and fetch live research
+        results.
       </p>
 
-      {/* Controls */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "minmax(0, 2.3fr) minmax(0, 2fr) auto",
-          gap: "0.75rem",
-          marginBottom: "1.4rem",
-        }}
-      >
-        {/* Topic selector */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          <label
-            htmlFor="topic"
-            style={{ fontSize: "0.85rem", color: "#374151" }}
-          >
-            Topic
-          </label>
+      <div className="topic-controls">
+        <div className="topic-field">
+          <label htmlFor="topic">Topic</label>
           <select
             id="topic"
             value={selectedId}
             onChange={(e) => setSelectedId(e.target.value)}
-            style={{
-              padding: "0.45rem 0.6rem",
-              borderRadius: "0.6rem",
-              border: "1px solid #d1d5db",
-              fontSize: "0.9rem",
-            }}
           >
             {TOPICS.map((t) => (
               <option key={t.id} value={t.id}>
@@ -112,14 +89,8 @@ function TopicExplorer() {
           </select>
         </div>
 
-        {/* Custom query */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          <label
-            htmlFor="query"
-            style={{ fontSize: "0.85rem", color: "#374151" }}
-          >
-            Optional search text (q)
-          </label>
+        <div className="topic-field">
+          <label htmlFor="query">Optional search text</label>
           <input
             id="query"
             type="text"
@@ -130,74 +101,29 @@ function TopicExplorer() {
                 ? `Leave blank to use default: "${selectedTopic.api.defaultQuery}"`
                 : "Search term"
             }
-            style={{
-              padding: "0.45rem 0.6rem",
-              borderRadius: "0.6rem",
-              border: "1px solid #d1d5db",
-              fontSize: "0.9rem",
-            }}
           />
         </div>
 
-        {/* Fetch button */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-          }}
-        >
+        <div className="topic-action">
           <button
             onClick={handleFetch}
             disabled={loading || !selectedTopic}
-            style={{
-              padding: "0.55rem 1rem",
-              borderRadius: "999px",
-              border: "none",
-              cursor: loading ? "default" : "pointer",
-              background: loading ? "#9ca3af" : "#2563eb",
-              color: "#ffffff",
-              fontSize: "0.9rem",
-              fontWeight: 600,
-              boxShadow: "0 8px 18px rgba(37, 99, 235, 0.45)",
-            }}
+            className="topic-fetch-button"
           >
             {loading ? "Loading..." : "Fetch results"}
           </button>
         </div>
       </div>
 
-      {/* Topic info */}
       {selectedTopic && (
-        <div
-          style={{
-            marginBottom: "1.4rem",
-            padding: "0.8rem 0.9rem 0.9rem",
-            borderRadius: "0.9rem",
-            background: "#eef2ff",
-            border: "1px dashed rgba(129, 140, 248, 0.7)",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "0.85rem",
-              fontWeight: 600,
-              color: "#4f46e5",
-              marginBottom: "0.25rem",
-            }}
-          >
+        <div className="topic-info">
+          <div className="topic-info-title">
             {selectedTopic.title}
           </div>
-          <div style={{ fontSize: "0.88rem", color: "#4b5563" }}>
+          <div className="topic-info-description">
             {selectedTopic.description}
           </div>
-          <div
-            style={{
-              marginTop: "0.45rem",
-              fontSize: "0.8rem",
-              color: "#6b7280",
-            }}
-          >
+          <div className="topic-info-meta">
             <strong>Sources:</strong>{" "}
             {selectedTopic.api.sources.join(", ")} ·{" "}
             <strong>Default query:</strong>{" "}
@@ -206,77 +132,43 @@ function TopicExplorer() {
         </div>
       )}
 
-      {/* Error */}
       {error && (
-        <div
-          style={{
-            marginBottom: "1rem",
-            padding: "0.6rem 0.75rem",
-            borderRadius: "0.6rem",
-            background: "#fef2f2",
-            color: "#b91c1c",
-            fontSize: "0.85rem",
-            border: "1px solid #fecaca",
-          }}
-        >
+        <div className="topic-error">
           Error: {error}
         </div>
       )}
 
-      {/* Results */}
-      <div>
-        <h2
-          style={{
-            margin: "0 0 0.35rem",
-            fontSize: "1.05rem",
-          }}
-        >
+      <div className="topic-results-section">
+        <h2>
           Results ({items.length})
         </h2>
-        <p
-          style={{
-            margin: "0 0 0.7rem",
-            fontSize: "0.85rem",
-            color: "#6b7280",
-          }}
-        >
+        <p>
           Newest items should appear first. Click a title to open the original
           source.
         </p>
 
         {items.length === 0 && !loading && !error && (
-          <p style={{ fontSize: "0.9rem", color: "#6b7280" }}>
+          <p className="topic-empty-state">
             No items yet. Try &ldquo;Fetch results&rdquo; or change the
             topic/query.
           </p>
         )}
 
-        <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+        <ul className="topic-results-list">
           {items.map((item) => (
             <li
               key={`${item.source}:${item.id}`}
-              style={{
-                borderBottom: "1px solid #e5e7eb",
-                padding: "0.7rem 0",
-              }}
             >
-              <div style={{ fontSize: "0.9rem", fontWeight: 600 }}>
+              <div className="topic-result-title">
                 <a
                   href={item.url}
                   target="_blank"
                   rel="noreferrer"
-                  style={{ color: "#2563eb", textDecoration: "none" }}
                 >
                   {item.title}
                 </a>
               </div>
-              <div
-                style={{
-                  fontSize: "0.78rem",
-                  color: "#6b7280",
-                  marginTop: "0.1rem",
-                }}
-              >
+              <div className="topic-result-meta">
                 {item.source}
                 {item.agency ? ` · ${item.agency}` : ""}
                 {item.documentType ? ` · ${item.documentType}` : ""}
@@ -286,13 +178,7 @@ function TopicExplorer() {
                 {item.category ? ` · ${item.category}` : ""}
               </div>
               {item.snippet && (
-                <div
-                  style={{
-                    marginTop: "0.25rem",
-                    fontSize: "0.85rem",
-                    color: "#374151",
-                  }}
-                >
+                <div className="topic-result-snippet">
                   {item.snippet}
                 </div>
               )}

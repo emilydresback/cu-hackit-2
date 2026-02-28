@@ -9,8 +9,8 @@ function Navigation() {
     <nav className="navigation">
       <div className="nav-container">
         <Link to="/" className="nav-logo">
-          <img src={supremeCourtImg} alt="GovDocs" className="logo-icon" />
-          <span className="logo-text">GovDocs Explorer</span>
+          <img src={supremeCourtImg} alt="Research Docs" className="logo-icon" />
+          <span className="logo-text">Research Docs</span>
         </Link>
         
         <div className="nav-links">
@@ -24,7 +24,13 @@ function Navigation() {
             to="/search" 
             className={`nav-link ${location.pathname === '/search' ? 'active' : ''}`}
           >
-            Search
+            Explore
+          </Link>
+          <Link
+            to="/topics"
+            className={`nav-link ${location.pathname === '/topics' ? 'active' : ''}`}
+          >
+            Topics
           </Link>
         </div>
       </div>
