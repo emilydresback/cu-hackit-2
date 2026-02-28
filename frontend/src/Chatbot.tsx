@@ -34,7 +34,7 @@ function Chatbot() {
   const apiBase = (apiBaseRaw || "").replace(/\/+$/, ""); // remove trailing slash
 
   // Keyword-extraction endpoint
-  const chatEndpoint = apiBase ? `${apiBase}/chat` : "";
+  const chatEndpoint = apiBase ? `${apiBase}/govdocs-chat` : "";
 
   // Topic search endpoint (either derived from base or the direct Lambda URL)
   const searchEndpoint = apiBase ? `${apiBase}/search` : FALLBACK_SEARCH_URL;
