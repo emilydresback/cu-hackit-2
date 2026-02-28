@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import clipboardImg from "./assets/clipboard.png";
+import newspaperImg from "./assets/newspaper.png";
+import glassImg from "./assets/glass.png";
 import "./App.css";
 
 function Home() {
@@ -20,19 +23,19 @@ function Home() {
 
       <div className="features-grid">
         <div className="feature-card">
-          <div className="feature-icon">📋</div>
+          <img src={clipboardImg} alt="DOJ" className="feature-icon" />
           <h3>Department of Justice</h3>
           <p>Access press releases, legal documents, and official DOJ publications</p>
         </div>
 
         <div className="feature-card">
-          <div className="feature-icon">📰</div>
+          <img src={newspaperImg} alt="Federal Register" className="feature-icon" />
           <h3>Federal Register</h3>
           <p>Browse federal rules, proposed regulations, and public notices</p>
         </div>
 
         <div className="feature-card">
-          <div className="feature-icon">🔍</div>
+          <img src={glassImg} alt="Search" className="feature-icon" />
           <h3>Powerful Search</h3>
           <p>Find exactly what you need with our intelligent search capabilities</p>
         </div>
