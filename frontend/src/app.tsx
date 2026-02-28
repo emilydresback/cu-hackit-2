@@ -1,58 +1,46 @@
 import { useState } from 'react';
 import './App.css';
 
-interface DojRelease {
-  uuid: string;
+type SourceId = "doj" | "federal_register";
+
+interface DocItem {
+  id: string;
+  source: SourceId;
   title: string;
   url: string;
-  date?: string;
+  publishedAt?: string;   // ISO string from your Lambda
+  snippet?: string;
+  agency?: string;
+  documentType?: string;
+  category?: string;
 }
 
 function App() {
+  const API_BASE = import.meta.env.VITE_API_BASE as string;
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<DojRelease[]>([]);
+  const [results, setResults] = useState<DocItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const search = async () => {
     setLoading(true);
-    setError('');
+    setError("");
     setResults([]);
-
+  
     try {
-      const params = new URLSearchParams({
-        pagesize: '10',
-        page: '0',
-        sort: 'date',
-        direction: 'DESC',
-      });
-
-      if (query.trim()) {
-        // DOJ title filter
-        params.append('parameters[title]', query.trim());
-      }
-
-      const res = await fetch(
-        `https://www.justice.gov/api/v1/press_releases.json?${params.toString()}`
-      );
-
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
-      }
-
+      if (!API_BASE) throw new Error("VITE_API_BASE is not set");
+  
+      const url = `${API_BASE}/search?q=${encodeURIComponent(
+        query
+      )}&sources=doj,federal_register&page=0&pageSize=10`;
+  
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  
       const data = await res.json();
-
-      // DOJ format: { results: [...] }
-      const items: DojRelease[] = (data.results || []).map((item: any) => ({
-        uuid: item.uuid,
-        title: item.title,
-        url: item.url,
-        date: item.date,
-      }));
-
-      setResults(items);
+      setResults(data.items || []);
     } catch (e: any) {
-      setError(e?.message || 'Something went wrong');
+      setError(e?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -95,20 +83,13 @@ function App() {
 
       <ul style={{ marginTop: '1.5rem', listStyle: 'none', padding: 0 }}>
         {results.map((item) => {
-          let dateStr = '';
-          if (item.date) {
-            const n = Number(item.date);
-            if (!Number.isNaN(n)) {
-              // DOJ often returns unix timestamp (seconds)
-              dateStr = new Date(n * 1000).toLocaleDateString();
-            } else {
-              dateStr = item.date;
-            }
-          }
+          const dateStr = item.publishedAt
+          ? new Date(item.publishedAt).toLocaleDateString()
+          : "";
 
           return (
             <li
-              key={item.uuid}
+              key={`${item.source}-${item.id}`}
               style={{
                 border: '1px solid #ddd',
                 borderRadius: 8,
@@ -124,11 +105,12 @@ function App() {
               >
                 {item.title}
               </a>
-              {dateStr && (
-                <div style={{ fontSize: '0.85rem', color: '#555' }}>
-                  Date: {dateStr}
-                </div>
-              )}
+              <div style={{ fontSize: "0.85rem", color: "#555", marginTop: 6 }}>
+                {item.source.toUpperCase()}
+                {item.agency ? ` • ${item.agency}` : ""}
+                {item.documentType ? ` • ${item.documentType}` : ""}
+                {dateStr ? ` • ${dateStr}` : ""}
+              </div>
             </li>
           );
         })}
