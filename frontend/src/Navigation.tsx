@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import supremeCourtImg from "./assets/supremecourt.png";
+import supremeCourtImg from "./assets/supremecourt.jpeg";
 import "./App.css";
 
 function Navigation() {
