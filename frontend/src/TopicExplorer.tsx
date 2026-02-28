@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { TOPICS } from "./topic";
 
 // TODO: replace with your real Lambda URL
-const LAMBDA_URL = import.meta.env.VITE_API_BASE as string;
+const LAMBDA_URL = "https://p8fh3grm0g.execute-api.us-east-1.amazonaws.com/prod/search";
 
 // This shape matches what your Lambda returns
 type SearchItem = {

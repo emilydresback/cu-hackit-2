@@ -4,7 +4,7 @@ import { TOPICS, TopicConfig } from "./topic";
 
 // TODO: replace this with your actual deployed Lambda URL
 const LAMBDA_URL =
-  "https://your-api-gateway-url-here.amazonaws.com/prod/search";
+  "https://p8fh3grm0g.execute-api.us-east-1.amazonaws.com/prod/search";
 
 interface SearchItem {
   id: string;
