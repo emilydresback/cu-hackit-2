@@ -93,7 +93,7 @@ export const TOPICS: TopicConfig[] = [
     },
   },
 
-  // 3. Federal Spending (USAspending)
+  // 3. Federal Spending (USAspending) not working
   {
     id: "federal-spending",
     title: "Where Federal Money Actually Goes",
