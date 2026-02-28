@@ -11,60 +11,42 @@ interface ChatMessage {
 }
 
 function Chatbot() {
-  const apiBase = import.meta.env.VITE_API_BASE;
-  const chatEndpoint =
-    import.meta.env.VITE_CHAT_API || (apiBase ? `${apiBase}/chat` : "");
+  const apiBaseRaw = import.meta.env.VITE_API_BASE as string;
+  const apiBase = (apiBaseRaw || "").replace(/\/+$/, ""); // remove trailing slash
+  const chatEndpoint = apiBase ? `${apiBase}/chat` : "";
 
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Optional: store keywords for other frontend features
+  const [keywords, setKeywords] = useState<string[]>([]);
+
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: crypto.randomUUID(),
       role: "assistant",
       content:
-        "Hi! I’m your research assistant. Ask me to summarize a topic, compare sources, or find key points in public documents.",
+        "Hi! Send a message and I’ll extract keywords from it (used by the frontend to find relevant info).",
       timestamp: new Date().toISOString(),
     },
   ]);
 
-  const canSend = useMemo(() => input.trim().length > 0 && !loading, [input, loading]);
+  const canSend = useMemo(
+    () => input.trim().length > 0 && !loading,
+    [input, loading]
+  );
 
-  const buildHistoryPayload = (nextUserMessage: ChatMessage) => {
-    return [...messages, nextUserMessage].map((message) => ({
-      role: message.role,
-      content: message.content,
-    }));
-  };
-
-  const parseAssistantReply = (data: unknown): string => {
-    if (!data || typeof data !== "object") {
-      return "I couldn’t parse the chatbot response.";
-    }
-
-    const response = data as Record<string, unknown>;
-
-    if (typeof response.reply === "string") return response.reply;
-    if (typeof response.message === "string") return response.message;
-    if (typeof response.answer === "string") return response.answer;
-    if (typeof response.output === "string") return response.output;
-
-    if (
-      Array.isArray(response.messages) &&
-      response.messages.length > 0 &&
-      typeof response.messages[response.messages.length - 1] === "object" &&
-      response.messages[response.messages.length - 1] !== null
-    ) {
-      const lastMessage = response.messages[
-        response.messages.length - 1
-      ] as Record<string, unknown>;
-
-      if (typeof lastMessage.content === "string") {
-        return lastMessage.content;
-      }
-    }
-
-    return "I received a response, but couldn't find assistant text in it.";
+  // Parse keywords from backend response: { keywords: string[] }
+  const parseKeywords = (data: unknown): string[] => {
+    if (!data || typeof data !== "object") return [];
+    const obj = data as Record<string, unknown>;
+    const kws = obj.keywords;
+    if (!Array.isArray(kws)) return [];
+    return kws
+      .filter((k): k is string => typeof k === "string")
+      .map((k) => k.trim())
+      .filter((k) => k.length > 0);
   };
 
   const sendMessage = async () => {
@@ -82,7 +64,7 @@ function Chatbot() {
     setError("");
 
     if (!chatEndpoint) {
-      setError("Set VITE_CHAT_API or VITE_API_BASE to connect the chatbot endpoint.");
+      setError("Set VITE_API_BASE to connect the API endpoint.");
       return;
     }
 
@@ -91,21 +73,25 @@ function Chatbot() {
     try {
       const res = await fetch(chatEndpoint, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: userMessage.content,
-          history: buildHistoryPayload(userMessage),
         }),
       });
 
       if (!res.ok) {
-        throw new Error(`Chat request failed with HTTP ${res.status}`);
+        throw new Error(`Request failed with HTTP ${res.status}`);
       }
 
       const data = await res.json();
-      const assistantText = parseAssistantReply(data);
+      const kws = parseKeywords(data);
+
+      // Save keywords for your frontend logic
+      setKeywords(kws);
+
+      // Show keywords in the chat UI (debug / transparency)
+      const assistantText =
+        kws.length > 0 ? `Keywords: ${kws.join(", ")}` : "No keywords found.";
 
       const assistantMessage: ChatMessage = {
         id: crypto.randomUUID(),
@@ -116,7 +102,8 @@ function Chatbot() {
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Unable to reach the chatbot service.";
+      const message =
+        err instanceof Error ? err.message : "Unable to reach the service.";
       setError(message);
     } finally {
       setLoading(false);
@@ -131,15 +118,39 @@ function Chatbot() {
   return (
     <section className="chat-page">
       <header className="chat-header">
-        <h1>Research Assistant</h1>
-        <p>Chat with your document assistant for summaries, comparisons, and next-step questions.</p>
+        <h1>Keyword Extractor</h1>
+        <p>
+          This endpoint returns keywords for each message. Your frontend can use
+          them to find relevant information.
+        </p>
+
+        {/* Optional: show keyword “chips” outside the chat */}
+        {keywords.length > 0 && (
+          <div style={{ marginTop: 8, display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {keywords.map((k) => (
+              <span
+                key={k}
+                style={{
+                  border: "1px solid rgba(255,255,255,0.25)",
+                  padding: "4px 8px",
+                  borderRadius: 999,
+                  fontSize: 12,
+                }}
+              >
+                {k}
+              </span>
+            ))}
+          </div>
+        )}
       </header>
 
       <div className="chat-shell">
         <div className="chat-messages" role="log" aria-live="polite">
           {messages.map((message) => (
             <article key={message.id} className={`chat-bubble ${message.role}`}>
-              <div className="chat-bubble-role">{message.role === "assistant" ? "Assistant" : "You"}</div>
+              <div className="chat-bubble-role">
+                {message.role === "assistant" ? "Assistant" : "You"}
+              </div>
               <p>{message.content}</p>
             </article>
           ))}
@@ -147,7 +158,7 @@ function Chatbot() {
           {loading && (
             <article className="chat-bubble assistant loading">
               <div className="chat-bubble-role">Assistant</div>
-              <p>Thinking…</p>
+              <p>Extracting…</p>
             </article>
           )}
         </div>
@@ -159,7 +170,7 @@ function Chatbot() {
             type="text"
             value={input}
             onChange={(event) => setInput(event.target.value)}
-            placeholder="Ask a research question..."
+            placeholder="Type a message to extract keywords..."
             aria-label="Chat message"
           />
           <button type="submit" disabled={!canSend}>
