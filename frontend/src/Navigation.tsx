@@ -9,8 +9,8 @@ function Navigation() {
     <nav className="navigation">
       <div className="nav-container">
         <Link to="/" className="nav-logo">
-          <img src={supremeCourtImg} alt="Research Docs" className="logo-icon" />
-          <span className="logo-text">Research Docs</span>
+          <img src={supremeCourtImg} alt="Research Docs Explorer" className="logo-icon" />
+          <span className="logo-text">Research Docs Explorer</span>
         </Link>
         
         <div className="nav-links">

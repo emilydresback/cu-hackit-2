@@ -9,7 +9,7 @@ function Home() {
     <div className="home-container">
       <div className="hero-section">
         <div className="hero-badge">Learn Through Experience • Personalized Understanding</div>
-        <h1 className="hero-title">Your Learning Journey</h1>
+        <h1 className="hero-title">Research Docs Explorer</h1>
         <p className="hero-subtitle">
           Learn topics that matter to you by connecting with your own experiences and perspectives
         </p>
