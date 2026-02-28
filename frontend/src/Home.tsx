@@ -8,53 +8,53 @@ function Home() {
   return (
     <div className="home-container">
       <div className="hero-section">
-        <div className="hero-badge">Evidence-first • Modern research workspace</div>
-        <h1 className="hero-title">Research Docs</h1>
+        <div className="hero-badge">Learn Through Experience • Personalized Understanding</div>
+        <h1 className="hero-title">Your Learning Journey</h1>
         <p className="hero-subtitle">
-          A clear workspace for public-policy and government-document research
+          Learn topics that matter to you by connecting with your own experiences and perspectives
         </p>
         <p className="hero-description">
-          Search trusted public sources, compare signals quickly, and move from
-          questions to evidence with less noise and more focus.
+          Move beyond passive reading. Have real conversations about topics you care about, understand 
+          how they connect to your life, and build knowledge that actually sticks with you.
         </p>
         <Link to="/search" className="cta-button">
-          Start Research
+          Explore Topics
         </Link>
       </div>
 
       <div className="features-grid">
         <div className="feature-card">
-          <img src={clipboardImg} alt="DOJ" className="feature-icon" />
-          <h3>Primary Sources</h3>
-          <p>Review DOJ and Federal Register records directly from official publishers</p>
+          <img src={clipboardImg} alt="Chat" className="feature-icon" />
+          <h3>Conversation-Based Learning</h3>
+          <p>Chat with an AI that understands your perspective and helps you explore topics your way</p>
         </div>
 
         <div className="feature-card">
-          <img src={newspaperImg} alt="Federal Register" className="feature-icon" />
-          <h3>Structured Discovery</h3>
-          <p>Scan results by agency, type, and date for faster evidence triage</p>
+          <img src={newspaperImg} alt="Personal Insights" className="feature-icon" />
+          <h3>Make It Personal</h3>
+          <p>Connect new information to your experiences and build understanding that resonates with you</p>
         </div>
 
         <div className="feature-card">
-          <img src={glassImg} alt="Search" className="feature-icon" />
-          <h3>Focused Interface</h3>
-          <p>Minimal interactions reduce cognitive load and keep attention on content</p>
+          <img src={glassImg} alt="Deep Understanding" className="feature-icon" />
+          <h3>Deeper Understanding</h3>
+          <p>Go beyond surface-level facts to truly understand why topics matter and how they affect your world</p>
         </div>
       </div>
 
       <div className="info-section">
-        <h2>Why Research Docs?</h2>
+        <h2>Why This Approach?</h2>
         <div className="info-content">
           <p>
-            Research Docs is designed for students, analysts, journalists, and
-            policy teams who need to gather reliable context quickly. The design
-            emphasizes readability, consistency, and direct access to source material.
+            Learning sticks when it's personal. Instead of scrolling through disconnected articles, 
+            you'll have thoughtful conversations that help you understand topics in relation to your 
+            own experiences. This makes learning more impactful than trying to navigate research on your own.
           </p>
           <ul className="benefits-list">
-            <li>✓ Clear visual hierarchy for faster scanning</li>
-            <li>✓ Consistent patterns that reduce interaction friction</li>
-            <li>✓ Accessible contrast and spacious typography</li>
-            <li>✓ Direct links to original source documents</li>
+            <li>✓ Interactive conversations instead of passive reading</li>
+            <li>✓ Get answers tailored to what you actually want to know</li>
+            <li>✓ Understand the real-world relevance to your life</li>
+            <li>✓ Build lasting knowledge that feels meaningful</li>
           </ul>
         </div>
       </div>
